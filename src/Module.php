@@ -8,7 +8,7 @@ use yii\base\InvalidConfigException;
 
 /**
  * Class Module
- * @package snewer\images
+ * @package snewer\files
  * @property \snewer\storage\StorageManager $storage
  */
 class Module extends \yii\base\Module
