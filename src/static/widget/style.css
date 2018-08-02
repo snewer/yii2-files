@@ -1,0 +1,49 @@
+.file-upload-widget {
+    position: relative;
+    border: 2px dashed #d3d2d2;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.file-upload-widget .loader {
+
+}
+
+.file-upload-widget-container {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 1px 0 #999;
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 15px;
+    color: #606B6F;
+}
+
+.file-upload-widget-container .rm-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.file-upload-widget-container .rm-btn:hover {
+    color: #337ab7;
+}
+
+.file-upload-widget-tools {
+    text-align: center;
+    font-size: 120%;
+    color: #d3d2d2;
+}
+
+.file-upload-widget span.file-upload-tools-clickable {
+    cursor: pointer;
+}
+.file-upload-widget span.file-upload-tools-clickable:hover {
+    color: #337ab7;
+    text-decoration: underline;
+}
