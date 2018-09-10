@@ -27,6 +27,7 @@ class FileController extends Controller
         return [
             'upload' => 'snewer\files\actions\UploadAction',
             'get' => 'snewer\files\actions\GetAction',
+            'append' => 'snewer\files\actions\AppendAction',
         ];
     }
 

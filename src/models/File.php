@@ -105,18 +105,35 @@ class File extends ActiveRecord
         return $bytes;
     }
 
-    public function upload(UploadedFile $file)
+    public function uploadByUploadedFile(UploadedFile $file)
+    {
+        return $this->uploadBinary($file->name, $file->extension, file_get_contents($file->tempName));
+    }
+
+    public function uploadBinary($fileName, $extension, $binary)
     {
         $bucketName = $this->getModule()->bucketName;
         $storageModel = FileBucket::findOrCreateByName($bucketName);
         $storage = $this->getModule()->getStorage()->getBucket($bucketName);
-        $source = file_get_contents($file->tempName);
         $this->bucket_id = $storageModel->id;
-        $this->name = $file->name;
-        $this->size = $file->size;
-        $this->path = $storage->upload($source, $file->extension);
-        $this->integrity = 'sha384-' . base64_encode(hash('sha384', $source, true));
+        $this->name = $fileName;
+        $this->size = strlen($binary);
+        $this->path = $storage->upload($binary, $extension);
+        $this->integrity = 'sha384-' . base64_encode(hash('sha384', $binary, true));
         return $this->save();
+    }
+
+    public function append($source)
+    {
+        $bucketName = $this->getModule()->bucketName;
+        $storage = $this->getModule()->getStorage()->getBucket($bucketName);
+        if ($storage->append($this->path, $source)) {
+            $this->size += strlen($source);
+            $this->save(false);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

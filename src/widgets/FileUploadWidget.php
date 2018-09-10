@@ -12,6 +12,18 @@ class FileUploadWidget extends InputWidget
 {
 
     /**
+     * Загрузка файлов по-частям.
+     * @var bool
+     */
+    public $chunkUpload = false;
+
+    /**
+     * Размер загружаемых частей файла.
+     * @var int
+     */
+    public $chunkSize = 1024 * 1024 * 2;
+
+    /**
      * Идентификатор используемого модуля.
      * Используется для генерации ссылок по-умолчанию
      * в методе init().
@@ -26,10 +38,16 @@ class FileUploadWidget extends InputWidget
     public $getFileUrl;
 
     /**
-     * Ссылка на действие получения изображения.
+     * Ссылка на действие получения файла.
      * @var string|null
      */
     public $uploadFileUrl;
+
+    /**
+     * Ссылка на действие получения файла.
+     * @var string|null
+     */
+    public $appendFileUrl;
 
     /**
      * Jquery asset bundle
@@ -73,6 +91,9 @@ class FileUploadWidget extends InputWidget
         if ($this->uploadFileUrl === null) {
             $this->uploadFileUrl = Url::to(['/' . $this->moduleId . '/file/upload']);
         }
+        if ($this->appendFileUrl === null) {
+            $this->appendFileUrl = Url::to(['/' . $this->moduleId . '/file/append']);
+        }
     }
 
     public function run()
@@ -80,8 +101,11 @@ class FileUploadWidget extends InputWidget
         $options = [
             'urls' => [
                 'getFile' => $this->getFileUrl,
-                'uploadFile' => $this->uploadFileUrl
+                'uploadFile' => $this->uploadFileUrl,
+                'appendFile' => $this->appendFileUrl
             ],
+            'chunkUpload' => $this->chunkUpload,
+            'chunkSize' => $this->chunkSize
         ];
         $js = PHP_EOL . 'jQuery("#' . $this->options['id'] . '").FileUploadWidget(' . Json::encode($options) . ');';
         $this->view->registerJs($js);

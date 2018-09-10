@@ -18,7 +18,7 @@ class UploadAction extends Action
     {
         $file = UploadedFile::getInstanceByName('file');
         $model = new File();
-        $success = $model->upload($file);
+        $success = $model->uploadByUploadedFile($file);
 
         Yii::$app->response->format = Response::FORMAT_JSON;
         return [
