@@ -3,7 +3,7 @@
 namespace snewer\files\controllers;
 
 use yii\web\Controller;
-use snewer\images\ModuleTrait;
+use snewer\files\ModuleTrait;
 
 /**
  * Class ImageController
